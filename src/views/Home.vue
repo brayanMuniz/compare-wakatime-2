@@ -1,5 +1,11 @@
 <template>
-  <div v-if="userSignedIn"></div>
+  <div v-if="userSignedIn">
+    <div v-if="userAuthenticatedWithWaka">This is where the real stuff will be</div>
+    <div v-else>
+      Authenticate this application with
+      <a href>wakatime</a>
+    </div>
+  </div>
   <div v-else>
     <p>Make A Firebase account</p>
     <form @submit.prevent="makeFirebaseAccount">
@@ -50,11 +56,13 @@ export default Vue.extend({
           .then(async res => {
             if (res.user) {
               const myUid: string = res.user.uid;
+              store.commit("updateUserFBStatus", res.user.uid);
               console.log("Made user", myUid);
             }
           })
           .catch(err => {
             console.error("Failed to make user");
+            store.commit("updateUserFBStatus", undefined);
             console.error(err.code, err.message);
           });
       }
@@ -63,6 +71,9 @@ export default Vue.extend({
   computed: {
     userSignedIn(): boolean {
       return store.getters.userSignedIn;
+    },
+    userAuthenticatedWithWaka(): boolean {
+      return store.getters.getUserWakaAuth;
     }
   }
 });

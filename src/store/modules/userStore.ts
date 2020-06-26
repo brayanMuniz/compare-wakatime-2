@@ -10,6 +10,9 @@ const getters: GetterTree<any, any> = {
   userSignedIn(): boolean {
     return state.isUserSignedIn;
   },
+  getUserWakaAuth(): boolean {
+    return state.userWakaAuthentication;
+  },
   getUserUID(): string | undefined {
     return state.userUID;
   },

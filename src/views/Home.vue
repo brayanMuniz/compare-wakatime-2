@@ -1,20 +1,25 @@
 <template>
   <div class="home">
     <h1>bruh</h1>
-    <h3>{{ count }}</h3>
+    <button @click="addItSelf">Count: {{ count }}</button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Component from "vue-class-component";
+import { Component, Watch } from "vue-property-decorator";
 
 @Component
 export default class Home extends Vue {
-  data() {
-    return {
-      count: Number(),
-    };
+  count = Number();
+  addItSelf() {
+    this.count = this.count + 1;
+    console.log("bruh");
+  }
+  @Watch("count")
+  onCountChanged(val: number, oldVal: number) {
+    console.log("val", val);
+    console.log("oldVal", oldVal);
   }
 }
 </script>

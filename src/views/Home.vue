@@ -1,11 +1,14 @@
 <template>
   <div v-if="userSignedIn">
     <div v-if="userAuthenticatedWithWaka">This is where the real stuff will be</div>
+
     <div v-else>
       Authenticate this application with
-      <a href>wakatime</a>
+      <a :href="wakaTimeRedirect">wakatime</a>
     </div>
+    <p>{{wakaTimeRedirect}}</p>
   </div>
+
   <div v-else>
     <p>Make A Firebase account</p>
     <form @submit.prevent="makeFirebaseAccount">
@@ -29,12 +32,12 @@
     </form>
   </div>
 </template>
-
 <script lang='ts'>
 import Vue from "vue";
 import store from "@/store";
 import { firebaseApp } from "@/db";
-
+import url from "url";
+import axios from "axios";
 export default Vue.extend({
   name: "Home",
   data() {
@@ -42,6 +45,16 @@ export default Vue.extend({
       email: "",
       password: ""
     };
+  },
+  async created() {
+    if (
+      this.$route.query.code !== undefined &&
+      this.$route.query.code !== null &&
+      typeof this.$route.query.code == "string"
+    ) {
+      const code: string = this.$route.query.code;
+      await this.callableFirebaseFunction(code);
+    }
   },
   methods: {
     async makeFirebaseAccount() {
@@ -66,6 +79,30 @@ export default Vue.extend({
             console.error(err.code, err.message);
           });
       }
+    },
+   
+    async callableFirebaseFunction(code: string) {
+      const userUID: string | undefined = store.getters.getUserUID;
+      if (userUID !== undefined) {
+        console.log("calling it ");
+        const parameters = {
+          // eslint-disable-next-line
+          redirect_uri: "http://localhost:8080",
+          userUID,
+          code
+        };
+        await axios
+          .post(
+            "https://us-central1-wakatime-data.cloudfunctions.net/widgets/serverSidePostWakatimeRequest/",
+            parameters
+          )
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
     }
   },
   computed: {
@@ -74,6 +111,24 @@ export default Vue.extend({
     },
     userAuthenticatedWithWaka(): boolean {
       return store.getters.getUserWakaAuth;
+    },
+    wakaTimeRedirect(): string {
+      const scope =
+        "read_stats,read_logged_time,read_orgs,read_private_leaderboards";
+      const fullUrl = url.format({
+        pathname: "https://wakatime.com/oauth/authorize",
+        // Todo: configure eslint to allow those 3
+        query: {
+          // eslint-disable-next-line
+          client_id: store.state.wakaTimeClientId,
+          // eslint-disable-next-line
+          response_type: "code",
+          // eslint-disable-next-line
+          redirect_uri: "http://localhost:8080",
+          scope
+        }
+      });
+      return fullUrl;
     }
   }
 });

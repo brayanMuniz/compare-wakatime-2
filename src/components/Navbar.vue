@@ -1,62 +1,45 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Compare Wakatime</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <router-link to="/" class="navbar-brand">
+        Compare Wakatime
+      </router-link>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
+        <form class="form-inline my-2 my-lg-0" v-if="signedIn">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropleft">
+              <a
+                class="nav-link dropdown-toggle text-light"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Username
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link to="/" class="dropdown-item">Profile</router-link>
+                <router-link to="/" class="dropdown-item">Sign out</router-link>
+              </div>
+            </li>
+          </ul>
+          <!-- <button class="btn btn-outline-light my-2 my-sm-0">
+            Sign out
+          </button> -->
+        </form>
+        <form class="from-inline my-2 my-lg-0" v-else>
+          <button
+            class="btn btn-outline-light my-2 my-sm-0"
+            style="margin-right: 10px;"
+          >
+            Sign In
           </button>
+          <button class="btn btn-outline-light my-2 my-sm-0">Sign Up</button>
         </form>
       </div>
     </nav>
@@ -65,7 +48,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+import Component from "vue-class-component";
+
+@Component
+export default class Navbar extends Vue {
+  signedIn = true;
+}
 </script>
 
 <style></style>

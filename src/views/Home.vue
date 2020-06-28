@@ -6,19 +6,16 @@
 
 <script lang="ts">
 import Vue from "vue";
-import LineChart from "@/components/LineChart.vue";
+import { Component } from "vue-property-decorator";
+import LineChart, { ChartData, ChartOptions } from "@/components/LineChart.vue";
 import planetChartData from "@/chartData/chartData";
-
-export default Vue.extend({
+@Component({
   components: {
     LineChart,
   },
-  props: ["chartdata", "options"],
-  data() {
-    return {
-      planetData: planetChartData.data,
-      planetOptions: planetChartData.options,
-    };
-  },
-});
+})
+export default class Home extends Vue {
+  planetData: ChartData = planetChartData.data;
+  planetOptions: ChartOptions = planetChartData.options;
+}
 </script>

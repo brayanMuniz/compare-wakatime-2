@@ -70,6 +70,7 @@ export const planetChartData = {
       yAxes: [
         {
           ticks: {
+            fontColor: '#FFFFFF',
             beginAtZero: true,
             padding: 25,
           },

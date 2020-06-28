@@ -17,4 +17,7 @@ export default Vue.extend({
 
 <style scoped>
 @import "~bootstrap/dist/css/bootstrap.css";
+#app {
+  background-color: #343a40;
+}
 </style>

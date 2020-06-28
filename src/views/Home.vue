@@ -1,20 +1,21 @@
 <template>
   <div class="home">
-    <h1>bruh</h1>
-    <h3>{{ count }}</h3>
+    <line-chart :chartData="planetData" :chartOptions="planetOptions" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Component from "vue-class-component";
-
-@Component
+import { Component } from "vue-property-decorator";
+import LineChart, { ChartData, ChartOptions } from "@/components/LineChart.vue";
+import planetChartData from "@/chartData/chartData";
+@Component({
+  components: {
+    LineChart,
+  },
+})
 export default class Home extends Vue {
-  data() {
-    return {
-      count: Number(),
-    };
-  }
+  planetData: ChartData = planetChartData.data;
+  planetOptions: ChartOptions = planetChartData.options;
 }
 </script>

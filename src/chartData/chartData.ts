@@ -54,6 +54,18 @@ export const planetChartData = {
     responsive: true,
     lineTension: 1,
     maintainAspectRatio: false,
+    color: ['white'],
+    legend: {
+      labels: {
+        // This more specific font property overrides the global property
+        fontColor: "#FFFFFF",
+      },
+      datasets: {
+        label: {
+          fontColor: "#FFFFFF",
+        },
+      },
+    },
     scales: {
       yAxes: [
         {
@@ -63,6 +75,11 @@ export const planetChartData = {
           },
         },
       ],
+      xAxes: [{
+        ticks: {
+          fontColor: '#FFFFFF'
+        }
+      }]
     },
   },
 };

@@ -11,19 +11,9 @@ export default class LineChart extends Vue<Line> {
   constructor() {
     super();
   }
-
-  @Prop({
-    default: {
-      labels: [],
-      datasets: [],
-    },
-  })
-  @Prop()
-  readonly chartData!: ChartData;
+  @Prop() readonly chartData!: ChartData;
   @Prop() readonly chartOptions!: ChartOptions;
   mounted() {
-    console.log("chartData", this.chartData);
-    console.log("chartOptions", this.chartOptions);
     this.renderChart(this.chartData, this.chartOptions);
   }
 }

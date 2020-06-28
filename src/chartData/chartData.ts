@@ -36,7 +36,7 @@ export const planetChartData = {
           "#36495d",
           "#36495d",
         ],
-        borderWidth: 3,
+        borderWidth: 1,
       },
       {
         // another line graph
@@ -46,13 +46,14 @@ export const planetChartData = {
           "rgba(71, 183,132,.5)", // Green
         ],
         borderColor: ["#47b784"],
-        borderWidth: 3,
+        borderWidth: 1,
       },
     ],
   },
   options: {
     responsive: true,
     lineTension: 1,
+    maintainAspectRatio: false,
     scales: {
       yAxes: [
         {

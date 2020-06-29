@@ -1,14 +1,16 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 1px solid #696969">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      style="border-bottom: 1px solid #696969"
+    >
       <router-link to="/" class="navbar-brand">
         Compare Wakatime
       </router-link>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <form class="form-inline my-2 my-lg-0" v-if="signedIn">
+        <ul class="navbar-nav mr-auto"></ul>
+        <form class="form-inline my-2 my-lg-0" v-if="user">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropleft">
               <a
@@ -20,7 +22,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Username
+                {{user.email}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <router-link to="/" class="dropdown-item">Profile</router-link>
@@ -48,13 +50,19 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Component from "vue-class-component";
-
-@Component
-export default class Navbar extends Vue {
-  signedIn = Boolean();
-}
+import store from "@/store/index";
+export default Vue.extend({
+  data() {
+    return {
+      signedIn: Boolean(),
+    };
+  },
+  computed: {
+    user() {
+      return store.state.userModule.account.user;
+    },
+  },
+});
 </script>
 
-<style>
-</style>
+<style></style>

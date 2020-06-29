@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 1px solid #696969">
       <router-link to="/" class="navbar-brand">
         Compare Wakatime
       </router-link>
@@ -52,8 +52,9 @@ import Component from "vue-class-component";
 
 @Component
 export default class Navbar extends Vue {
-  signedIn = true;
+  signedIn = Boolean();
 }
 </script>
 
-<style></style>
+<style>
+</style>

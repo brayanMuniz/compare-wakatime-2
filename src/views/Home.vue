@@ -10,11 +10,13 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import LineChart, { ChartData, ChartOptions } from "@/components/LineChart.vue";
 import UserTable from '@/components/UserTable.vue'
+import
 import planetChartData from "@/chartData/chartData";
 @Component({
   components: {
     LineChart,
-    UserTable
+    UserTable,
+    
   },
 })
 export default class Home extends Vue {

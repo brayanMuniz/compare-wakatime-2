@@ -1,15 +1,15 @@
 <template>
   <div class="home">
     <line-chart :chartData="planetData" :chartOptions="planetOptions" />
-    <user-table/>
+    <user-table />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Component from "vue-class-component";
 import LineChart, { ChartData, ChartOptions } from "@/components/LineChart.vue";
-import UserTable from '@/components/UserTable.vue'
+import UserTable from "@/components/UserTable.vue";
 import planetChartData from "@/chartData/chartData";
 @Component({
   components: {

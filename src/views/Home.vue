@@ -15,7 +15,6 @@ import planetChartData from "@/chartData/chartData";
   components: {
     LineChart,
     UserTable,
-    
   },
 })
 export default class Home extends Vue {

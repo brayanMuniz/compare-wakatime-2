@@ -12,7 +12,7 @@
 <script lang="ts">
 import Vue from "vue";
 import firebaseApp from "firebase";
-import LineChart, { ChartData, ChartOptions } from "@/components/LineChart.vue";
+import LineChart, { ChartData } from "@/components/LineChart.vue";
 import UserTable from "@/components/UserTable.vue";
 import { DataCollection } from "@/Classes/UserData";
 import planetChartData from "@/chartData/chartData";
@@ -43,6 +43,7 @@ export default Vue.extend({
           },
         ],
       };
+
       await Promise.resolve(
         firebaseApp
           .firestore()
@@ -64,6 +65,10 @@ export default Vue.extend({
           })
       );
       console.log(dataCollection);
+      const orderedDates = dataCollection.labels.sort((a, b) => {
+        return new Date(a).valueOf() - new Date(b).valueOf();
+      });
+      dataCollection.labels = orderedDates;
       this.wakatimeData = dataCollection;
       this.wakatimeOptions = {
         responsive: true,
@@ -100,7 +105,7 @@ export default Vue.extend({
           ],
         },
       };
-      this.loaded = true
+      this.loaded = true;
     },
   },
   mounted() {

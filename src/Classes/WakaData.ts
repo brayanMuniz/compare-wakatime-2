@@ -51,7 +51,10 @@ export class WakaData {
             querySnapshot.forEach((doc) => {
               // console.log(doc.id, "=>", doc.data());
               dataCollection.datasets[index].data.push(
-                doc.data().grand_total.total_seconds
+                // Todo: reall
+                Math.round(
+                  (doc.data().grand_total.total_seconds / 60 / 60) * 100
+                ) / 100
               );
               dataCollection.labels.push(doc.id);
             });
@@ -62,7 +65,7 @@ export class WakaData {
       return new Date(a).valueOf() - new Date(b).valueOf();
     });
     dataCollection.labels = orderedDates;
-    console.log(dataCollection.datasets)
+    console.log(dataCollection.datasets);
     const wakatimeOptions = {
       responsive: true,
       lineTension: 1,
@@ -82,6 +85,7 @@ export class WakaData {
       scales: {
         yAxes: [
           {
+            // type: "time",
             ticks: {
               fontColor: "#FFFFFF",
               beginAtZero: true,
@@ -91,6 +95,7 @@ export class WakaData {
         ],
         xAxes: [
           {
+            // type: "time",
             ticks: {
               fontColor: "#FFFFFF",
             },

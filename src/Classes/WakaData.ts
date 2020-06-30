@@ -1,5 +1,4 @@
 import firebaseApp from "firebase";
-import { data } from "jquery";
 
 export class WakaData {
   async getUserData() {

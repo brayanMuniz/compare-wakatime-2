@@ -6,13 +6,13 @@ export class WakaData {
       labels: [],
       datasets: [
         {
-          label: String,
-          backgroundColor: ["rgb(255, 99, 132)"],
+          label: String(),
+          backgroundColor: "rgb(255, 99, 132)",
           data: [],
         },
         {
-          label: String,
-          backgroundColor: ["rbg(0, 0, 230)"],
+          label: String(),
+          backgroundColor: "rbg(0, 0, 230)",
           data: [],
         },
       ],
@@ -62,6 +62,7 @@ export class WakaData {
       return new Date(a).valueOf() - new Date(b).valueOf();
     });
     dataCollection.labels = orderedDates;
+    console.log(dataCollection.datasets)
     const wakatimeOptions = {
       responsive: true,
       lineTension: 1,
@@ -138,9 +139,14 @@ export interface UserTime {
 
 export interface DataCollection {
   labels: Array<string>;
-  datasets: Array<any>;
+  datasets: Array<Dataset>;
 }
 
+interface Dataset {
+  backgroundColor: string;
+  data: Array<number>;
+  label: string;
+}
 interface UserData {
   firebaseUID: Array<string>;
   wakatimeUserName: Array<string>;

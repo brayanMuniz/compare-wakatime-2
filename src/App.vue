@@ -12,15 +12,15 @@ import { Account } from "@/Classes/Account";
 import store from "@/store/index";
 import { firebaseApp } from "@/db";
 export default Vue.extend({
+  name: "App",
   components: {
     Navbar,
   },
-  mounted() {
-    firebaseApp.auth().onAuthStateChanged(async (user) => {
+  async mounted() {
+    await firebaseApp.auth().onAuthStateChanged(async (user) => {
       if (user) {
         const account: Account = new Account(user);
         store.commit("setAccount", account);
-        console.log(user);
       }
     });
   },

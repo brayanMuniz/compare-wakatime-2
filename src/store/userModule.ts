@@ -7,19 +7,20 @@ const state = {
   account: Account,
   userFetched: Boolean(),
 };
-
+// eslint-disable-next-line
 const getters: GetterTree<any, any> = {
   getAccount: (state: State) => {
     return state.account;
   },
 };
-
+// eslint-disable-next-line
 const mutations: MutationTree<any> = {
+  // eslint-disable-next-line
   setAccount(state: State, user: any) {
     Vue.set(state, "account", user);
   },
 };
-
+// eslint-disable-next-line
 const actions: ActionTree<any, any> = {
   login({ state }, userInput: UserInput) {
     state.account.login(userInput as UserInput);
@@ -36,6 +37,7 @@ const actions: ActionTree<any, any> = {
 };
 
 interface State {
+  // eslint-disable-next-line
   user: Record<string, any>;
   account: Account;
   userFetched: boolean;

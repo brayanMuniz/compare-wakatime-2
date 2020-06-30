@@ -10,7 +10,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
-        <form class="form-inline my-2 my-lg-0" v-if="user">
+        <form class="form-inline my-2 my-lg-0" v-if="account">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropleft">
               <a
@@ -22,7 +22,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {{user.email}}
+                {{ account.user.email }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <router-link to="/" class="dropdown-item">Profile</router-link>
@@ -50,18 +50,17 @@
 
 <script lang="ts">
 import Vue from "vue";
-import store from "@/store/index";
+import { mapState } from "vuex";
 export default Vue.extend({
   data() {
     return {
       signedIn: Boolean(),
     };
   },
-  computed: {
-    user() {
-      return store.state.userModule.account.user;
-    },
+  mounted() {
+    console.log(this.account)
   },
+  computed: mapState('userModule', ["account"]),
 });
 </script>
 

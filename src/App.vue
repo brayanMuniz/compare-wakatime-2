@@ -20,7 +20,7 @@ export default Vue.extend({
     await firebaseApp.auth().onAuthStateChanged(async (user) => {
       if (user) {
         const account: Account = new Account(user);
-        store.commit("setAccount", account);
+        store.commit("userModule/setAccount", account);
       }
     });
   },

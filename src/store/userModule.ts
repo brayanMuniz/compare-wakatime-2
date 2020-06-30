@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Account, UserInput, UserChanges } from "@/Classes/Account";
+import { Account, UserInput } from "@/Classes/Account";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 const state = {
@@ -42,6 +42,7 @@ interface State {
 }
 
 export default {
+  namespaced: true, 
   state,
   getters,
   mutations,

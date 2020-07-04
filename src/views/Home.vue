@@ -35,18 +35,12 @@
     <form @submit.prevent="signIn">
       <div class="form-group">
         <label for="Email">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="Email"
-          aria-describedby="emailHelp"
-          v-model.trim="email"
-        />
+        <input type="email" class="form-control" aria-describedby="emailHelp" v-model.trim="email" />
       </div>
 
       <div class="form-group">
         <label for="Password">Password</label>
-        <input v-model.trim="password" type="password" class="form-control" id="Password" />
+        <input v-model.trim="password" type="password" class="form-control" />
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>

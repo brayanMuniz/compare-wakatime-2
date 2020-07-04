@@ -22,9 +22,14 @@ export default Vue.extend({
       if (user) {
         store.commit("updateUserFBStatus", user.uid);
         console.log("User", user.uid, "signed in.");
-        await this.getUserData(user.uid)
+
+        console.log("Getting data from firebase...");
+        await firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
           .then(res => {
-            console.log("Got your data", res.data());
+            console.log("Got your data", res, res.data());
           })
           .catch(err => {
             console.error(err);
@@ -33,16 +38,9 @@ export default Vue.extend({
       } else {
         store.commit("updateUserFBStatus", undefined);
         console.log("User not signed in");
+        this.dataLoaded = true;
       }
     });
-  },
-  methods: {
-    async getUserData(userUID: string) {
-      return firestore()
-        .collection("users")
-        .doc(userUID)
-        .get();
-    }
   }
 });
 </script>

@@ -6,12 +6,33 @@
       Authenticate this application with
       <a :href="wakaTimeRedirect">wakatime</a>
     </div>
-    <p>{{wakaTimeRedirect}}</p>
   </div>
 
   <div v-else>
     <p>Make A Firebase account</p>
+
     <form @submit.prevent="makeFirebaseAccount">
+      <div class="form-group">
+        <label for="Email">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="Email"
+          aria-describedby="emailHelp"
+          v-model.trim="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="Password">Password</label>
+        <input v-model.trim="password" type="password" class="form-control" id="Password" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <p>Or Sign In</p>
+    <form @submit.prevent="signIn">
       <div class="form-group">
         <label for="Email">Email address</label>
         <input
@@ -35,7 +56,7 @@
 <script lang='ts'>
 import Vue from "vue";
 import store from "@/store";
-import { firebaseApp } from "@/db";
+import { firebaseAuth } from "@/db";
 import url from "url";
 import axios from "axios";
 export default Vue.extend({
@@ -63,8 +84,7 @@ export default Vue.extend({
       } else {
         console.log("Making User....");
 
-        await firebaseApp
-          .auth()
+        await firebaseAuth
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(async res => {
             if (res.user) {
@@ -80,7 +100,6 @@ export default Vue.extend({
           });
       }
     },
-   
     async callableFirebaseFunction(code: string) {
       const userUID: string | undefined = store.getters.getUserUID;
       if (userUID !== undefined) {
@@ -103,6 +122,17 @@ export default Vue.extend({
             console.error(err);
           });
       }
+    },
+    async signIn() {
+      console.log("Signing in user...");
+      await firebaseAuth
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   },
   computed: {

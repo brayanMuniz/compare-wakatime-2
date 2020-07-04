@@ -6,7 +6,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { firebaseApp } from "@/db";
+import { firestore } from "firebase";
+import { firebaseAuth } from "@/db";
 import store from "@/store";
 
 export default Vue.extend({
@@ -15,19 +16,33 @@ export default Vue.extend({
       dataLoaded: false
     };
   },
-  async created() {
-    console.log("Getting user data...");
-    await firebaseApp.auth().onAuthStateChanged(user => {
+  async mounted() {
+    console.log("Checking user auth...");
+    await firebaseAuth.onAuthStateChanged(async user => {
       if (user) {
         store.commit("updateUserFBStatus", user.uid);
         console.log("User", user.uid, "signed in.");
+        await this.getUserData(user.uid)
+          .then(res => {
+            console.log("Got your data", res.data());
+          })
+          .catch(err => {
+            console.error(err);
+          });
         this.dataLoaded = true;
       } else {
         store.commit("updateUserFBStatus", undefined);
         console.log("User not signed in");
-        this.dataLoaded = true;
       }
     });
+  },
+  methods: {
+    async getUserData(userUID: string) {
+      return firestore()
+        .collection("users")
+        .doc(userUID)
+        .get();
+    }
   }
 });
 </script>

@@ -35,6 +35,7 @@ export default Vue.extend({
       await store
         .dispatch("userData/getWakatimeData")
         .then((dataCollection: DataCollection) => {
+          console.log(dataCollection)
           this.wakaDataClass.formatWakatimeData(dataCollection).then((res) => {
             this.wakatimeData = res.dataCollection;
             this.wakatimeOptions = res.wakatimeOptions;

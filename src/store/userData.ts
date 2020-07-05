@@ -1,7 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { firebaseApp } from "@/db";
 import { DataCollection, UserData } from "@/Classes/WakaData";
-import moment from "moment";
 
 const state = {};
 // eslint-disable-next-line
@@ -69,11 +68,7 @@ const actions: ActionTree<any, any> = {
                 dataCollection.labels.push(doc.id);
               }
               dataCollection.datasets[index].data.push(
-                Math.round(
-                  (doc.data().grand_total.total_seconds / 60 / 60 +
-                    Number.EPSILON) *
-                    100
-                ) / 100
+                Math.round((doc.data().grand_total.total_seconds / 60 / 60 + Number.EPSILON) * 100) / 100
               );
               // Todo: With Multiple users don't push the dates twice, only once
             });

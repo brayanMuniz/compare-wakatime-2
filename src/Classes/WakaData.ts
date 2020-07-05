@@ -1,8 +1,8 @@
 export class WakaData {
   async formatWakatimeData(dataCollection: DataCollection) {
-    const orderedDates = dataCollection.labels.sort((a, b) => {
-      return new Date(a).valueOf() - new Date(b).valueOf();
-    });
+    // const orderedDates = dataCollection.labels.sort((a, b) => {
+    //   return new Date(a).valueOf() - new Date(b).valueOf();
+    // });
     // console.log('orderedDates', orderedDates)
     // dataCollection.labels = orderedDates;
     const wakatimeOptions = {

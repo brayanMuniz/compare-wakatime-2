@@ -4,11 +4,11 @@ import { DataCollection, UserData } from "@/Classes/WakaData";
 import moment from "moment";
 
 const state = {};
-
+// eslint-disable-next-line
 const getters: GetterTree<any, any> = {};
-
+// eslint-disable-next-line
 const mutations: MutationTree<any> = {};
-
+// eslint-disable-next-line
 const actions: ActionTree<any, any> = {
   async getWakatimeData() {
     const dataCollection: DataCollection = {

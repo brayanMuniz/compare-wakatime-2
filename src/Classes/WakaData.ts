@@ -86,7 +86,7 @@ export interface DataCollection {
   datasets: Array<Dataset>;
 }
 
-interface Dataset {
+export interface Dataset {
   backgroundColor: string;
   data: Array<number>;
   label: string;

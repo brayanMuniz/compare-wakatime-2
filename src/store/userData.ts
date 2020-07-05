@@ -18,11 +18,11 @@ const actions: ActionTree<any, any> = {
           backgroundColor: "rgb(255, 99, 132)",
           data: [],
         },
-        {
-          label: String(),
-          backgroundColor: "rbg(0, 0, 230)",
-          data: [],
-        },
+        // {
+        //   label: String(),
+        //   backgroundColor: "rbg(0, 0, 230)",
+        //   data: [],
+        // },
       ],
     };
     const userData: UserData = {
@@ -45,28 +45,31 @@ const actions: ActionTree<any, any> = {
           console.error(err);
         })
     );
-    userData.firebaseUID.forEach((user: string, index: number) => {
-      dataCollection.datasets[index].label = userData.wakatimeUserName[index];
-      Promise.resolve(
-        firebaseApp
-          .firestore()
-          .collection("users")
-          .doc(user as string)
-          .collection("summaries")
-          // Todo: Limit the number dates to 7 or 14
-          .get()
-          .then(function(querySnapshot) {
-            querySnapshot.forEach((doc) => {
-              // console.log(doc.id, "=>", doc.data());
-              dataCollection.datasets[index].data.push(
-                // Todo: reall
-                doc.data().grand_total.total_seconds
-              );
-              dataCollection.labels.push(doc.id);
-            });
-          })
-      );
-    });
+    // userData.firebaseUID.forEach((user: string, index: number) => {
+    dataCollection.datasets[0].label = userData.wakatimeUserName[1];
+    await Promise.resolve(
+      firebaseApp
+        .firestore()
+        .collection("users")
+        .doc(userData.firebaseUID[1])
+        .collection("summaries")
+        // Todo: Limit the number dates to 7 or 14
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach((doc) => {
+            // console.log(doc.id, "=>", doc.data());
+            dataCollection.datasets[0].data.push(
+              Math.round(
+                (doc.data().grand_total.total_seconds / 60 / 60 +
+                  Number.EPSILON) *
+                  100
+              ) / 100
+            );
+            dataCollection.labels.push(doc.id);
+          });
+        })
+    );
+    // });
     return dataCollection;
   },
 };

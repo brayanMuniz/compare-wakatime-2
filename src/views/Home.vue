@@ -24,18 +24,17 @@ export default Vue.extend({
     return {
       loaded: Boolean(),
       // type cast this correctly
-      wakatimeData: {},
+      wakatimeData: Object() as DataCollection,
       wakatimeOptions: {},
       wakaDataClass: new WakaData() as WakaData,
     };
   },
-  
+
   methods: {
     async renderWakatimeDataChart() {
       await store
         .dispatch("userData/getWakatimeData")
         .then((dataCollection: DataCollection) => {
-          console.log(dataCollection)
           this.wakaDataClass.formatWakatimeData(dataCollection).then((res) => {
             this.wakatimeData = res.dataCollection;
             this.wakatimeOptions = res.wakatimeOptions;

@@ -56,12 +56,15 @@ const actions: ActionTree<any, any> = {
           .collection("summaries")
           // Todo: Make a function using moment js that finds 8 days ago, but whenever there's more data
           // !                            ↓
-          .where("range.date", '>', '2020-07-02')
+          .where(
+            "range.date",
+            ">",
+            moment(moment().subtract(3, "days")).format("YYYY-MM-DD") as string
+          )
           // Todo: Limit the number dates to 7 or 14
           .get()
           .then(function(querySnapshot) {
             querySnapshot.forEach((doc) => {
-              // console.log(doc.id, "=>", doc.data());
               if (index === 1) {
                 dataCollection.labels.push(doc.id);
               }

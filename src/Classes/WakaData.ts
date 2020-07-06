@@ -1,43 +1,10 @@
-import firebaseApp from "firebase";
-import { data } from "jquery";
-
 export class WakaData {
-  async getUserData() {
-    const dataCollection: DataCollection = {
-      labels: [],
-      datasets: [
-        {
-          label: "jahirPorcayo",
-          backgroundColor: ["rgb(255, 99, 132)"],
-          data: [],
-        },
-      ],
-    };
-    await Promise.resolve(
-      firebaseApp
-        .firestore()
-        .collection("Users")
-        // Todo: Make this query all users
-        .doc("E9CvU8HjhpO0Xj5If3c6KBxsmth1")
-        .collection("Summaries")
-        .where("grand_total.total_seconds", ">", 1000)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach((doc) => {
-            dataCollection.datasets[0].data.push(
-              doc.data().grand_total.total_seconds
-            );
-            dataCollection.labels.push(doc.id);
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-    );
-    const orderedDates = dataCollection.labels.sort((a, b) => {
-      return new Date(a).valueOf() - new Date(b).valueOf();
-    });
-    dataCollection.labels = orderedDates;
+  async formatWakatimeData(dataCollection: DataCollection) {
+    // const orderedDates = dataCollection.labels.sort((a, b) => {
+    //   return new Date(a).valueOf() - new Date(b).valueOf();
+    // });
+    // console.log('orderedDates', orderedDates)
+    // dataCollection.labels = orderedDates;
     const wakatimeOptions = {
       responsive: true,
       lineTension: 1,
@@ -57,6 +24,7 @@ export class WakaData {
       scales: {
         yAxes: [
           {
+            // type: "time",
             ticks: {
               fontColor: "#FFFFFF",
               beginAtZero: true,
@@ -66,6 +34,7 @@ export class WakaData {
         ],
         xAxes: [
           {
+            // type: "time",
             ticks: {
               fontColor: "#FFFFFF",
             },
@@ -114,5 +83,15 @@ export interface UserTime {
 
 export interface DataCollection {
   labels: Array<string>;
-  datasets: Array<any>;
+  datasets: Array<Dataset>;
+}
+
+export interface Dataset {
+  backgroundColor: string;
+  data: Array<number>;
+  label: string;
+}
+export interface UserData {
+  firebaseUID: Array<string>;
+  wakatimeUserName: Array<string>;
 }

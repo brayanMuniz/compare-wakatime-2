@@ -52,14 +52,6 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 export default Vue.extend({
-  data() {
-    return {
-      signedIn: Boolean(),
-    };
-  },
-  mounted() {
-    console.log(this.account)
-  },
   computed: mapState('userModule', ["account"]),
 });
 </script>

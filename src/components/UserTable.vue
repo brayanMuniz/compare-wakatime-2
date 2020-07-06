@@ -1,32 +1,18 @@
 <template>
   <div>
-    <table class="table table-dark">
+    <table class="table table-dark" v-if="timeDataLoaded">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Rank</th>
+          <th scope="col">Time</th>
+          <th scope="col">User Name</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
+        <tr v-for="(user, index) in userTime" :key="index">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.userTime }}</td>
         </tr>
       </tbody>
     </table>
@@ -34,10 +20,37 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from "vue";
+import { DataCollection, Dataset, UserTimeData } from "@/Classes/WakaData";
 export default Vue.extend({
-    
-})
+  props: ["wakaData"],
+  data() {
+    return {
+      timeDataLoaded: Boolean(),
+      userTime: [],
+    };
+  },
+  methods: {
+    compareTime(timePayload: DataCollection) {
+      const totalUserTime: Array<UserTimeData> = [];
+      timePayload.datasets.forEach((userData: Dataset) => {
+        const payload: UserTimeData = {
+          userName: userData.label,
+          userTime: userData.data.reduce((a: number, b: number) => a + b, 0),
+        };
+        totalUserTime.push(payload);
+      });
+      this.timeDataLoaded = true;
+      this.userTime = totalUserTime;
+    },
+  },
+  watch: {
+    wakaData() {
+      this.compareTime(this.wakaData);
+      console.log(this.wakaData);
+    },
+  },
+});
 </script>
 
 <style></style>

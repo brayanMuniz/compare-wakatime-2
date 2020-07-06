@@ -16,17 +16,10 @@ const actions: ActionTree<any, any> = {
       datasets: [],
     };
 
-    interface UserData2 {
-      firebaseUid: string;
-      wakatimeUserName: string;
-    }
-
     const userData: UserData = {
       firebaseUID: [],
       wakatimeUserName: [],
     };
-
-    const allUsers: Array<UserData2> = [];
 
     await firebaseApp
       .firestore()
@@ -34,56 +27,48 @@ const actions: ActionTree<any, any> = {
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach((doc) => {
-          if (doc.exists)
-            allUsers.push({
-              firebaseUid: doc.id,
-              wakatimeUserName: doc.data().wakatimeUserName,
-            });
-
-          userData.firebaseUID.push(doc.id);
-          userData.wakatimeUserName.push(doc.data().wakatimeUserName);
+          if (doc.exists) {
+            userData.firebaseUID.push(doc.id);
+            userData.wakatimeUserName.push(doc.data().wakatimeUserName);
+          }
         });
       })
       .catch((err) => {
         console.error(err);
       });
-
-    for (let i = 0; i < allUsers.length; i++) {
-      await firebaseApp
-        .firestore()
-        .collection("users")
-        .doc(allUsers[i].firebaseUid)
-        .collection("summaries")
-        .where("range.date", ">", moment(moment().subtract(3, "days")).format("YYYY-MM-DD") as string)
-        .get()
-        .then(() => {
-          const payload: Dataset = {
-            label: String(),
-            backgroundColor: "rgb(255, 99, 132)",
-            data: [],
-          };
-          dataCollection.labels.push(allUsers[i].wakatimeUserName);
-          dataCollection.datasets.push(payload);
-        });
-    }
-
+      // ? Find a better way to get colors, can't use random num generator
+    const colors = ["rgb(255, 99, 132)", "rbg(0, 0, 230)"];
     for (const [index, user] of userData.firebaseUID.entries()) {
+      const payload: Dataset = {
+        label: String(),
+        backgroundColor: colors[index],
+        data: [],
+      };
+      dataCollection.datasets[index] = payload;
       dataCollection.datasets[index].label = userData.wakatimeUserName[index];
       await firebaseApp
         .firestore()
         .collection("users")
         .doc(user)
         .collection("summaries")
-
-        .where("range.date", ">", moment(moment().subtract(3, "days")).format("YYYY-MM-DD") as string)
+        .where(
+          "range.date",
+          ">",
+          moment(moment().subtract(4, "days")).format("YYYY-MM-DD") as string
+        )
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach((doc) => {
             if (index === 1) {
               dataCollection.labels.push(doc.id);
             }
+
             dataCollection.datasets[index].data.push(
-              Math.round((doc.data().grand_total.total_seconds / 60 / 60 + Number.EPSILON) * 100) / 100
+              Math.round(
+                (doc.data().grand_total.total_seconds / 60 / 60 +
+                  Number.EPSILON) *
+                  100
+              ) / 100
             );
           });
         });

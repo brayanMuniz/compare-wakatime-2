@@ -36,7 +36,7 @@ const actions: ActionTree<any, any> = {
       .catch((err) => {
         console.error(err);
       });
-      // ? Find a better way to get colors, can't use random num generator
+    // ? Find a better way to get colors, can't use random num generator
     const colors = ["rgb(255, 99, 132)", "rbg(0, 0, 230)"];
     for (const [index, user] of userData.firebaseUID.entries()) {
       const payload: Dataset = {
@@ -54,7 +54,7 @@ const actions: ActionTree<any, any> = {
         .where(
           "range.date",
           ">",
-          moment(moment().subtract(4, "days")).format("YYYY-MM-DD") as string
+          moment(moment().subtract(5, "days")).format("YYYY-MM-DD") as string
         )
         .get()
         .then(function(querySnapshot) {

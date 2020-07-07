@@ -1,10 +1,10 @@
 import { firebaseApp } from "../db";
 import store from "@/store";
 export class Account {
+  // bruh stop using any 
   user: any;
   constructor(user?: any) {
     this.user = user;
-    // console.log(thi  s.signOut());
   }
   login(userInput: UserInput) {
     if (userInput.username != "" && userInput.password != "") {
@@ -50,8 +50,8 @@ export class Account {
       .then(function() {
         // Update successful.
       })
-      .catch(function(error: any) {
-        console.error(error);
+      .catch(() => {
+        console.error("There was a problem chaning your profile");
         // An error happened.
       });
   }

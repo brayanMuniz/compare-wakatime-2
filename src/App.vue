@@ -27,10 +27,14 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style>
 @import "~bootstrap/dist/css/bootstrap.css";
 #app {
   /* Make the width bigger */
+  background-color: #343a40;
+}
+
+body {
   background-color: #343a40;
 }
 </style>

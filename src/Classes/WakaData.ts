@@ -95,3 +95,8 @@ export interface UserData {
   firebaseUID: Array<string>;
   wakatimeUserName: Array<string>;
 }
+
+export interface UserTimeData {
+  userName: string;
+  userTime: number;
+}

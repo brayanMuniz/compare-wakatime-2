@@ -5,6 +5,7 @@
       :chartData="wakatimeData"
       :chartOptions="wakatimeOptions"
     />
+    <user-table :wakaData="wakatimeData" />
   </div>
 </template>
 
@@ -12,10 +13,12 @@
 import Vue from "vue";
 import LineChart from "@/components/LineChart.vue";
 import { WakaData, DataCollection } from "@/Classes/WakaData";
+import UserTable from "@/components/UserTable.vue";
 import store from "@/store/index";
 export default Vue.extend({
   components: {
     LineChart,
+    UserTable,
   },
   data() {
     return {

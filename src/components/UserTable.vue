@@ -22,6 +22,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { DataCollection, Dataset, UserTimeData } from "@/Classes/WakaData";
+import { Data } from "popper.js";
 export default Vue.extend({
   props: ["wakaData"],
   data() {
@@ -32,15 +33,21 @@ export default Vue.extend({
     };
   },
   methods: {
-    compareTime(timePayload: DataCollection) {
+    async compareTime(timePayload: DataCollection) {
       const totalUserTime: Array<UserTimeData> = [];
-      timePayload.datasets.forEach((userData: Dataset) => {
-        const payload: UserTimeData = {
-          userName: userData.label,
-          userTime: userData.data.reduce((a: number, b: number) => a + b, 0),
-        };
-        totalUserTime.push(payload);
-      });
+      await timePayload.datasets.forEach(
+        (userData: Dataset, index: number, arr) => {
+          const payload: UserTimeData = {
+            userName: userData.label,
+            userTime: Number(
+              userData.data
+                .reduce((a: number, b: number) => a + b, 0)
+                .toFixed(2)
+            ),
+          };
+          totalUserTime.push(payload);
+        }
+      );
       this.timeDataLoaded = true;
       this.userTime = totalUserTime;
     },
@@ -48,7 +55,6 @@ export default Vue.extend({
   watch: {
     wakaData() {
       this.compareTime(this.wakaData);
-      console.log(this.wakaData);
     },
   },
 });

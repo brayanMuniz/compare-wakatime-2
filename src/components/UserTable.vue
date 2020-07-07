@@ -27,7 +27,8 @@ export default Vue.extend({
   data() {
     return {
       timeDataLoaded: Boolean(),
-      userTime: [],
+      // Todo: Need to find a way to typecast arrays
+      userTime: [] as unknown,
     };
   },
   methods: {

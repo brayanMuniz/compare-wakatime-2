@@ -1,8 +1,9 @@
 import { firebaseApp } from "../db";
 import store from "@/store";
 export class Account {
-  // bruh stop using any 
+  // eslint-disable-next-line
   user: any;
+  // eslint-disable-next-line
   constructor(user?: any) {
     this.user = user;
   }
@@ -50,8 +51,9 @@ export class Account {
       .then(function() {
         // Update successful.
       })
-      .catch(() => {
-        console.error("There was a problem chaning your profile");
+      // eslint-disable-next-line
+      .catch(function(error: any) {
+        console.error(error);
         // An error happened.
       });
   }

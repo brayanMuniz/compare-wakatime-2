@@ -54,7 +54,7 @@ const actions: ActionTree<any, any> = {
         .where(
           "range.date",
           ">",
-          moment(moment().subtract(5, "days")).format("YYYY-MM-DD") as string
+          moment(moment().subtract(7, "days")).format("YYYY-MM-DD") as string
         )
         .get()
         .then(function(querySnapshot) {

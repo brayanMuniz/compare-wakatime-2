@@ -22,7 +22,6 @@
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",
-    "vue-chartjs": "^3.5.0",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.3.4",

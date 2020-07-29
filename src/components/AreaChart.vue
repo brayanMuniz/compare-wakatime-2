@@ -27,7 +27,35 @@ export default Vue.extend({
         },
         xaxis: {
           // type: "datetime",
-          categories: ["3", "5", "2", "3", "4", "1", "1"] as Array<string>,
+          categories: [] as Array<string>,
+          labels: {
+            style: {
+              colors: [
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+              ],
+            },
+          },
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: [
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+              ],
+            },
+          },
         },
         tooltip: {
           x: {
@@ -58,6 +86,34 @@ export default Vue.extend({
         xaxis: {
           // type: "datetime",
           categories: this.wakaData.labels as Array<string>,
+          labels: {
+            style: {
+              colors: [
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+              ],
+            },
+          },
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: [
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+                "#181a1b",
+              ],
+            },
+          },
         },
         tooltip: {
           x: {

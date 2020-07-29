@@ -30,10 +30,10 @@ export default Vue.extend({
 <style>
 @import "~bootstrap/dist/css/bootstrap.css";
 #app {
-  background-color: #343a40;
+  background-color: #181a1b;
 }
 
 body {
-  background-color: #343a40;
+  background-color: #181a1b;
 }
 </style>

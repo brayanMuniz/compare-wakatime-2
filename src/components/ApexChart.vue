@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- Change width and height to match users screen not by PIXELS -->
     <apexcharts
-      width="1725"
+      width="100%"
       height="500"
       type="area"
       :options="chartOptions"

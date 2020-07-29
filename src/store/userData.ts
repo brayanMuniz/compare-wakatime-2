@@ -12,13 +12,12 @@ const mutations: MutationTree<any> = {};
 const actions: ActionTree<any, any> = {
   async getWakatimeData() {
     const dataCollection: DataCollection = {
-      labels: [],
-      datasets: [],
+      labels: [] as Array<string>,
+      datasets: [] as Array<Dataset>,
     };
-
     const userData: UserData = {
-      firebaseUID: [],
-      wakatimeUserName: [],
+      firebaseUID: [] as Array<string>,
+      wakatimeUserName: [] as Array<string>,
     };
 
     await firebaseApp
@@ -37,14 +36,11 @@ const actions: ActionTree<any, any> = {
         console.error(err);
       });
     // ? Find a better way to get colors, can't use random num generator
-    const colors = ["rgb(255, 99, 132)", "rbg(0, 0, 230)"];
     for (const [index, user] of userData.firebaseUID.entries()) {
-      const payload: Dataset = {
+      dataCollection.datasets[index] = {
         label: String(),
-        backgroundColor: colors[index],
-        data: [],
+        data: [] as Array<number>,
       };
-      dataCollection.datasets[index] = payload;
       dataCollection.datasets[index].label = userData.wakatimeUserName[index];
       await firebaseApp
         .firestore()
@@ -62,6 +58,7 @@ const actions: ActionTree<any, any> = {
             if (index === 1) {
               dataCollection.labels.push(doc.id);
             }
+            console.log(user, "=>", doc.id, doc.data().projects);
             dataCollection.datasets[index].data.push(
               Math.round(
                 (doc.data().grand_total.total_seconds / 60 / 60 +

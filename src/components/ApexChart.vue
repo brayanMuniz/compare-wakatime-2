@@ -1,33 +1,65 @@
 <template>
-  <div></div>
+  <div>
+    <apexcharts
+      width="1500"
+      height="500"
+      type="area"
+      :options="chartOptions"
+      :series="series"
+    />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import ApexCharts from "apexcharts";
-
+import VueApexCharts from "vue-apexcharts";
 export default Vue.extend({
+  components: {
+    apexcharts: VueApexCharts,
+  },
   data() {
     return {
-      options: {
+      chartOptions: {
         chart: {
-          type: "line",
+          id: "basic-bar",
         },
-        series: [
-          {
-            name: "sales",
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-          },
-        ],
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+          categories: [],
         },
       },
+      series: [
+        {
+          name: "series-1",
+          data: [],
+        },
+      ],
     };
   },
-  mounted(){
-      let chart = new ApexCharts(do)
-  }
+  props: ["stockData"],
+  watch: {
+    stockData() {
+      this.series = [
+        {
+          data: this.stockData.datasets[0].data,
+          name: this.stockData.datasets[0].label,
+        },
+        {
+          data: this.stockData.datasets[1].data,
+          name: this.stockData.datasets[1].label,
+        },
+      ];
+      this.chartOptions = {
+        chart: {
+          id: "Wakatime",
+        },
+        xaxis: {
+          categories: this.stockData.labels,
+        },
+      };
+      this.chartOptions.xaxis.categories = this.stockData.labels;
+      this.series[0].data = this.stockData.datasets[0].data;
+    },
+  },
 });
 </script>
 

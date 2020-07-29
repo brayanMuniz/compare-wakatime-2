@@ -1,10 +1,5 @@
 <template>
   <div class="home">
-    <line-chart
-      v-if="loaded"
-      :chartData="wakatimeData"
-      :chartOptions="wakatimeOptions"
-    />
     <apex-chart :stockData="wakatimeData" />
     <user-table :wakaData="wakatimeData" />
   </div>
@@ -12,14 +7,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-import LineChart from "@/components/LineChart.vue";
 import ApexChart from "@/components/ApexChart.vue";
 import { WakaData, DataCollection } from "@/Classes/WakaData";
 import UserTable from "@/components/UserTable.vue";
 import store from "@/store/index";
 export default Vue.extend({
   components: {
-    LineChart,
     UserTable,
     ApexChart,
   },

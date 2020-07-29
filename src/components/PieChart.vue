@@ -13,7 +13,7 @@
 <script lang="ts">
 import Vue from "vue";
 import VueApexCharts from "vue-apexcharts";
-import { DataCollection, UserTimeData, Dataset } from "../Classes/WakaData";
+import { DataCollection, Dataset } from "../Classes/WakaData";
 export default Vue.extend({
   components: {
     apexchart: VueApexCharts,
@@ -50,22 +50,15 @@ export default Vue.extend({
   },
   props: ["userData"],
   methods: {
-    compareTime(timePayload: DataCollection) {
-      const totalUserTime: Array<UserTimeData> = [];
-      timePayload.datasets.forEach((userData: Dataset) => {
-        const payload: UserTimeData = {
-          userName: userData.label,
-          userTime: Number(
+    compareTime(userData: DataCollection) {
+      userData.datasets.forEach((userData: Dataset) => {
+        this.chartOptions.labels.push(userData.label);
+        this.series.push(
+          Number(
             userData.data.reduce((a: number, b: number) => a + b, 0).toFixed(2)
-          ),
-        };
-        totalUserTime.push(payload);
+          )
+        );
       });
-      this.chartOptions.labels.push(totalUserTime[0].userName);
-      this.chartOptions.labels.push(totalUserTime[1].userName);
-      this.series.push(totalUserTime[0].userTime);
-      this.series.push(totalUserTime[1].userTime);
-      //   this.series = totalUserTime
     },
   },
   watch: {

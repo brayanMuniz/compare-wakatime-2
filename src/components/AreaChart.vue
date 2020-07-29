@@ -131,7 +131,6 @@ export default Vue.extend({
         },
       }),
         this.wakaData.datasets.forEach((userData: Dataset) => {
-          console.log(userData);
           const userGraph: { data: Array<number>; name: string } = {
             data: userData.data,
             name: userData.label,

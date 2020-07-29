@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- Change width and height to match users screen not by PIXELS -->
     <apexcharts
-      width="1725"
+      width="100%"
       height="500"
       type="area"
       :options="chartOptions"
@@ -26,6 +27,15 @@ export default Vue.extend({
         xaxis: {
           categories: [],
         },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
+        },
       },
       series: [
         {
@@ -35,17 +45,17 @@ export default Vue.extend({
       ],
     };
   },
-  props: ["stockData"],
+  props: ["userData"],
   watch: {
-    stockData() {
+    userData() {
       this.series = [
         {
-          data: this.stockData.datasets[0].data,
-          name: this.stockData.datasets[0].label,
+          data: this.userData.datasets[0].data,
+          name: this.userData.datasets[0].label,
         },
         {
-          data: this.stockData.datasets[1].data,
-          name: this.stockData.datasets[1].label,
+          data: this.userData.datasets[1].data,
+          name: this.userData.datasets[1].label,
         },
       ];
       this.chartOptions = {
@@ -53,11 +63,20 @@ export default Vue.extend({
           id: "Wakatime",
         },
         xaxis: {
-          categories: this.stockData.labels,
+          categories: this.userData.labels,
+        },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
         },
       };
-      this.chartOptions.xaxis.categories = this.stockData.labels;
-      this.series[0].data = this.stockData.datasets[0].data;
+      this.chartOptions.xaxis.categories = this.userData.labels;
+      this.series[0].data = this.userData.datasets[0].data;
     },
   },
 });

@@ -1,20 +1,20 @@
 <template>
   <div class="home">
-    <apex-chart :stockData="wakatimeData" />
-    <user-table :wakaData="wakatimeData" />
+    <apex-chart :userData="wakatimeData" />
+    <pie-chart :userData="wakatimeData" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import ApexChart from "@/components/ApexChart.vue";
+import PieChart from "@/components/PieChart.vue";
 import { WakaData, DataCollection } from "@/Classes/WakaData";
-import UserTable from "@/components/UserTable.vue";
 import store from "@/store/index";
 export default Vue.extend({
   components: {
-    UserTable,
     ApexChart,
+    PieChart,
   },
   data() {
     return {

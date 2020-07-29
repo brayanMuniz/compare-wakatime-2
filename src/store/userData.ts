@@ -62,7 +62,6 @@ const actions: ActionTree<any, any> = {
             if (index === 1) {
               dataCollection.labels.push(doc.id);
             }
-
             dataCollection.datasets[index].data.push(
               Math.round(
                 (doc.data().grand_total.total_seconds / 60 / 60 +

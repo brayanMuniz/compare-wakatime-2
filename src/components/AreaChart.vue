@@ -2,8 +2,8 @@
   <div>
     <!-- Change width and height to match users screen not by PIXELS -->
     <apexcharts
-      width="100%"
-      height="500"
+      width="99%"
+      height="450"
       type="area"
       :options="chartOptions"
       :series="series"
@@ -26,7 +26,13 @@ export default Vue.extend({
           id: "Wakatime",
         },
         xaxis: {
-          categories: [],
+          // type: "datetime",
+          categories: ["3", "5", "2", "3", "4", "1", "1"] as Array<string>,
+        },
+        tooltip: {
+          x: {
+            format: "YYYY-MM-DD",
+          },
         },
         legend: {
           show: true,
@@ -44,14 +50,38 @@ export default Vue.extend({
   props: ["wakaData"],
   watch: {
     wakaData() {
-      this.wakaData.datasets.forEach((userData: Dataset) => {
-        console.log(userData);
-        const userGraph: { data: Array<number>; name: string } = {
-          data: userData.data,
-          name: userData.label,
-        };
-        this.series.push(userGraph);
-      });
+      // * Remember, you have to change the whole options config, to re-render the x-axis
+      (this.chartOptions = {
+        chart: {
+          id: "Wakatime",
+        },
+        xaxis: {
+          // type: "datetime",
+          categories: this.wakaData.labels as Array<string>,
+        },
+        tooltip: {
+          x: {
+            format: "YYYY-MM-DD",
+          },
+        },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
+        },
+      }),
+        this.wakaData.datasets.forEach((userData: Dataset) => {
+          console.log(userData);
+          const userGraph: { data: Array<number>; name: string } = {
+            data: userData.data,
+            name: userData.label,
+          };
+          this.series.push(userGraph);
+        });
     },
   },
 });

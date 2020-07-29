@@ -26,6 +26,15 @@ export default Vue.extend({
         xaxis: {
           categories: [],
         },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
+        },
       },
       series: [
         {
@@ -54,6 +63,15 @@ export default Vue.extend({
         },
         xaxis: {
           categories: this.stockData.labels,
+        },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
         },
       };
       this.chartOptions.xaxis.categories = this.stockData.labels;

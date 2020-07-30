@@ -77,20 +77,73 @@ export default Vue.extend({
     };
   },
   methods: {
-    updateChart() {
-      this.chartOptions.xaxis.categories = this.wakaData.labels;
-      this.wakaData.datasets.forEach((userData: Dataset) => {
-        const userGraph: { data: Array<number>; name: string } = {
-          data: userData.data,
-          name: userData.label,
-        };
-        this.series.push(userGraph);
-      });
+    updateChart(): void {
+      (this.chartOptions = {
+        chart: {
+          id: "Wakatime",
+        },
+        xaxis: {
+          // type: "datetime",
+          categories: this.wakaData.labels as Array<string>,
+          labels: {
+            style: {
+              colors: [
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+              ],
+            },
+          },
+        },
+        yaxis: {
+          labels: {
+            style: {
+              colors: [
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+              ],
+            },
+          },
+        },
+        tooltip: {
+          x: {
+            format: "YYYY-MM-DD",
+          },
+        },
+        legend: {
+          show: true,
+          labels: {
+            useSeriesColors: true,
+          },
+        },
+        grid: {
+          show: false,
+        },
+      }),
+        this.wakaData.datasets.forEach((userData: Dataset) => {
+          const userGraph: { data: Array<number>; name: string } = {
+            data: userData.data,
+            name: userData.label,
+          };
+          this.series.push(userGraph);
+        });
     },
   },
   watch: {
     wakaData() {
       this.updateChart();
+    },
+    chartOptions() {
+      console.log(this.chartOptions);
     },
   },
 });

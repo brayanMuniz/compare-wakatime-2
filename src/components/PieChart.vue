@@ -22,6 +22,27 @@ export default Vue.extend({
     return {
       series: [] as Array<number>,
       chartOptions: {
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                name: {
+                  show: true,
+                  color: "white",
+                },
+                value: {
+                  show: true,
+                  color: "white",
+                },
+                // total: {
+                //   show: true,
+                //   label: "Total Hours",
+                // },
+              },
+            },
+          },
+        },
         chart: {
           type: "donut",
         },

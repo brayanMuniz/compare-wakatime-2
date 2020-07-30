@@ -1,9 +1,6 @@
 <template>
   <div>
-    <nav
-      class="navbar navbar-expand-lg navbar-dark bg-dark"
-      style="border-bottom: 1px solid #696969"
-    >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link to="/" class="navbar-brand">
         Compare Wakatime
       </router-link>
@@ -52,7 +49,7 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 export default Vue.extend({
-  computed: mapState('userModule', ["account"]),
+  computed: mapState("userModule", ["account"]),
 });
 </script>
 

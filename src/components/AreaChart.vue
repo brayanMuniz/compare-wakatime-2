@@ -46,13 +46,13 @@ export default Vue.extend({
           labels: {
             style: {
               colors: [
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
               ],
             },
           },
@@ -104,13 +104,13 @@ export default Vue.extend({
           labels: {
             style: {
               colors: [
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
-                "#181a1b",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
+                "white",
               ],
             },
           },

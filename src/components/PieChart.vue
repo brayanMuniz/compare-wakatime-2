@@ -35,10 +35,11 @@ export default Vue.extend({
                   show: true,
                   color: "white",
                 },
-                // total: {
-                //   show: true,
-                //   label: "Total Hours",
-                // },
+                total: {
+                  show: true,
+                  label: "Total Hours",
+                  color: "white",
+                },
               },
             },
           },

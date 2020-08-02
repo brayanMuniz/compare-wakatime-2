@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container" style="margin-top: 10px">
+    <div class="container-fluid" style="margin-top: 10px">
       <div class="row">
         <div class="col-12">
           <div class="card" style="background-color: #232627">
